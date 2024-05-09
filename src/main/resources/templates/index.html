@@ -1,0 +1,81 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns: lang="en">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<form action="/restApi/insert">
+    <h1>블러블라 템플레</h1>
+    <hr>
+    <p> RDS에 등록될 글을 작성해봐요 🎈 </p>
+    제목 :  <input type="text" name="title"/>
+    <br>
+    내용 :  <input type="text" name="context"/>
+    <button>작성</button>
+</form>
+<br>
+<hr>
+<form action="/restApi/fileUpload"  method="post" enctype="multipart/form-data">
+    <p> s3에 이미지 등록해봐요 😎   </p>
+    파일 업로드 :  <input type="file" name="file" id="file"/>
+    <button>등록</button>
+</form>
+<br>
+<hr>
+<br>
+
+<h2>데이터 베이스 RDS.test 작성 목록</h2>
+<table>
+    <tr>
+        <td>제목</td>
+        <td>내용</td>
+    </tr>
+    <tr th:each="baord : ${list}">
+        <td th:text="${baord.test_title}"></td>
+        <td th:text="${baord.test_context}"></td>
+        <td></td>
+    </tr>
+</table>
+<br>
+<br>
+<h2>버킷 s3.s3testsm의 리스트</h2>
+<table border="1">
+    <tr>
+        <td>name</td>
+        <td>size</td>
+        <td>image</td>
+    </tr>
+    <tr th:each="file : ${fileList}">
+        <td th:text="${file.file_name}"></td>
+        <td th:text="${file.file_size}"></td>
+        <td><img th:src="'https://s3testsm.s3.us-east-1.amazonaws.com/' + ${file.file_name}" style="width:100px;"/></td>
+    </tr>
+</table>
+
+
+<script>
+    const fileInput = document.getElementById('file');
+
+    fileInput.addEventListener('change', (event) => {
+    const files = event.target.files;
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        console.log(`File : ${file}`);
+        console.log(`File Name: ${file.name}`);
+        console.log(`File Size: ${file.size} bytes`);
+        console.log(`File Type: ${file.type}`);
+        console.log(`Last Modified: ${file.lastModified}`);
+    }
+});
+</script>
+
+</body>
+</html>
