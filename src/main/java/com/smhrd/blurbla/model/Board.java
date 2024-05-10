@@ -16,7 +16,10 @@ import java.util.Date;
 @Table(name = "tb_test")
 public class Board {
     @Id
+    private int test_idx;
     private String test_title;
     private String test_context;
     private Date CreatedAt;
+    private char test_answer;
+
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 
 @RestController
@@ -20,17 +21,18 @@ public class Rest_ImageController {
 
     // Flask로 데이터 전송
     @PostMapping("/springToIamge")
-    public ResponseEntity<byte[]> sendToFlask(
-            @RequestPart("concent") Integer concent,
-            @RequestPart("file") MultipartFile image) {
+    public ResponseEntity<byte[]> sendToFlask (
+            @RequestParam HashMap<String, Object> file_subData,
+            @RequestParam("file") MultipartFile image) {
 
         ResponseEntity<byte[]> result = null;
 
         System.out.println("▶ React -> Spring : image OK!");
         System.out.println("imageFile : " + image);
+        System.out.println("file_type : " + file_subData.get("file_concent"));
 
         // Flask에 데이터 전달 → result
-        result = flaskService.sendToFlask(image);
+        result = flaskService.sendToFlask(image, file_subData);
         // result → React에 데이터 전달
         return result;
     }

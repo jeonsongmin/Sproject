@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 @Service
@@ -24,28 +26,31 @@ public class FlaskService {
     private final ObjectMapper objectMapper;
 
     @Transactional
-    public ResponseEntity<byte[]> sendToFlask(MultipartFile imageFile) {
+    public ResponseEntity<byte[]> sendToFlask(MultipartFile imageFile, HashMap<String, Object > fileData) {
         RestTemplate restTemplate = new RestTemplate();
+
+        // 리액트에서 보내온 파일의 모자이크 서브 데이터
+        // (농도, 타입, 모양, 기타 등등.. )
+        String file_concent = (String) fileData.get("file_concent");
 
         //헤더를 JSON으로 설정함
         byte[] imageBytes = null;
         HttpHeaders headers = new HttpHeaders();
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("file", imageFile.getResource());
-        //body.add("concent", concentNum);
-
-        //파라미터로 들어온 dto를 JSON 객체로 변환
-        //headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        body.add("file", imageFile.getResource());  // 파일 형식 전달
+        body.add("file_concent", file_concent);     // 파일의 농도 전달 (Auto Mosaic)
 
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, headers);
+
 
         //실제 Flask 서버랑 연결하기 위한 URL
         String url = "http://127.0.0.1:5000/detect";
 
         System.out.println("sp2py File url : " + url);
         System.out.println("sp2py File entity : " + entity);
+        System.out.println("sp2py File body : " + body);
         System.out.println("sp2py File body file : " + body.get("file"));
-        System.out.println("sp2py File body concent : " + body.get("concent"));
+        System.out.println("sp2py File body fileData : " + body.get("file_concent"));
 
         byte[] res = restTemplate.postForObject(url, entity, byte[].class);
         headers.setContentType(MediaType.IMAGE_JPEG); // Set the MIME type based on your image format

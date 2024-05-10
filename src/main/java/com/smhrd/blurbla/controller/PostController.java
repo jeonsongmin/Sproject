@@ -27,8 +27,8 @@ public class PostController {
 
     // 게시글 작성하기
     @GetMapping("/insert")
-    public RedirectView insert(@RequestParam String title, String context){
-        boardRepository.save(new Board(title, context, new Date()));
+    public RedirectView insert(@RequestParam int idx, String title, String context){
+        boardRepository.save( new Board(idx, title, context, new Date(), 'N') );
         System.out.println("insert => RedirectView on!");
         return new RedirectView("/flaskRestApi");
     }
