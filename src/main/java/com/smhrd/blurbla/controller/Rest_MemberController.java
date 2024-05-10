@@ -38,26 +38,29 @@ public class Rest_MemberController {
 
     // 회원 로그인하기
     @GetMapping("/Login")
-    public String selectLogin(@RequestParam String email, String pw, Model model){
+    public Optional<Member> selectLogin(@RequestParam String email, String pw){
         // 레포지토리에서 email의 회원 정보 가져오기
         Optional<Member> userData = memberRepository.findByEmail(email);
+        Optional<Member> react2Data = null; // 로그인 성공시 데이터 넘겨주고 실패하면 안넘겨줌
 
-        String result=""; // 성공,실패 여부로 res(리액트) 데이터 판별기준
-
+        try {
             // 회원 정보를 기반으로 비교 (널과 비번)
-            if (pw.equals(userData.get().getPw())) {
+            if (pw.equals(userData.get().getPw())) {    // 성공시
                 System.out.println("============================");
                 System.out.println("DB data pw : " + userData.get().getPw());
                 System.out.println("Inpurt  pw : " + pw);
                 System.out.println("Login Success");
-                result = "Success";
-            } else {
+                react2Data = userData;
+            } else {    // 실패시
+                System.out.println("============================");
                 System.out.println("DB data pw : " + userData.get().getPw());
                 System.out.println("Inpurt  pw : " + pw);
                 System.out.println("Login Fail");
-                result = "Fail";
             }
-        return model.addAttribute("userData", userData).toString();
+        }catch (Exception e){
+            System.out.println("Login DB Fail Err !! " + e);
+        }
+        return react2Data;
     }
 
     // 세션 정보 지우기

@@ -29,7 +29,7 @@ public class Rest_ImageController {
 
         System.out.println("▶ React -> Spring : image OK!");
         System.out.println("imageFile : " + image);
-        System.out.println("file_type : " + file_subData.get("file_concent"));
+        System.out.println("file_type : " + file_subData.get("concent"));
 
         // Flask에 데이터 전달 → result
         result = flaskService.sendToFlask(image, file_subData);
