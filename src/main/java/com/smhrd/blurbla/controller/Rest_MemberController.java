@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
@@ -26,8 +27,16 @@ public class Rest_MemberController {
     private MemberRepository memberRepository;    // 작성글 전용 JPA
 
     // 회원가입하기
-    @GetMapping("/join")
-    public String insertJoin(@RequestParam String email, String pw){
+    @PostMapping("/join")
+    public String insertJoin(@RequestBody HashMap<String, Object> joinData){
+
+        String email = (String) joinData.get("email");
+        String pw = (String) joinData.get("pw");
+
+        System.out.println("============================");
+        System.out.println("join ▶ email    : "+ email);
+        System.out.println("join ▶ pw       : "+ pw);
+
         memberRepository.save(new Member(email, pw, "M", new Date()));
         String result="";
         System.out.println("join ▶ RedirectView insertJoin on!");
@@ -45,15 +54,15 @@ public class Rest_MemberController {
 
         try {
             // 회원 정보를 기반으로 비교 (널과 비번)
-            if (pw.equals(userData.get().getPw())) {    // 성공시
+            if (pw.equals(userData.get().getMb_pw())) {    // 성공시
                 System.out.println("============================");
-                System.out.println("DB data pw : " + userData.get().getPw());
+                System.out.println("DB data pw : " + userData.get().getMb_pw());
                 System.out.println("Inpurt  pw : " + pw);
                 System.out.println("Login Success");
                 react2Data = userData;
             } else {    // 실패시
                 System.out.println("============================");
-                System.out.println("DB data pw : " + userData.get().getPw());
+                System.out.println("DB data pw : " + userData.get().getMb_pw());
                 System.out.println("Inpurt  pw : " + pw);
                 System.out.println("Login Fail");
             }

@@ -16,9 +16,8 @@ import java.util.Date;
 @Table(name = "tb_member")
 public class Member {
     @Id
-    private String email;
-    private String pw;
-    // role의 디폴트 값은 M
-    private String role;
+    private String mb_email;
+    private String mb_pw;
+    private String mb_role; // role의 디폴트 값은 M
     private Date joinedAt;
 }
