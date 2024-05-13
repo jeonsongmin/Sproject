@@ -22,7 +22,6 @@ public class File {
     private String file_rename;
     private String file_type;
     private Integer file_size;
-    private String file_ext;
     private Date CreatedAt;
 }
 

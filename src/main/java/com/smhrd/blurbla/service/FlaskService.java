@@ -21,6 +21,10 @@ import java.util.LinkedHashMap;
 @Service
 @RequiredArgsConstructor
 public class FlaskService {
+    
+    /* 
+    * 스프링과 플라스크 통신을 위한 클래스
+    * */
 
     //데이터를 JSON 객체로 변환하기 위해서 사용
     private final ObjectMapper objectMapper;

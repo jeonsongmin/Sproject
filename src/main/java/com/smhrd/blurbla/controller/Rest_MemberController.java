@@ -30,14 +30,14 @@ public class Rest_MemberController {
     @PostMapping("/join")
     public String insertJoin(@RequestBody HashMap<String, Object> joinData){
 
-        String email = (String) joinData.get("email");
-        String pw = (String) joinData.get("pw");
+        String mb_email = (String) joinData.get("mb_email");
+        String mb_pw = (String) joinData.get("mb_pw");
 
         System.out.println("============================");
-        System.out.println("join ▶ email    : "+ email);
-        System.out.println("join ▶ pw       : "+ pw);
+        System.out.println("join ▶ mb_email    : "+ mb_email);
+        System.out.println("join ▶ mb_pw       : "+ mb_pw);
 
-        memberRepository.save(new Member(email, pw, "M", new Date()));
+        memberRepository.save(new Member(mb_email, mb_pw, "M", new Date()));
         String result="";
         System.out.println("join ▶ RedirectView insertJoin on!");
 
@@ -47,23 +47,23 @@ public class Rest_MemberController {
 
     // 회원 로그인하기
     @GetMapping("/Login")
-    public Optional<Member> selectLogin(@RequestParam String email, String pw){
+    public Member selectLogin(@RequestParam String mb_email, String mb_pw){
         // 레포지토리에서 email의 회원 정보 가져오기
-        Optional<Member> userData = memberRepository.findByEmail(email);
-        Optional<Member> react2Data = null; // 로그인 성공시 데이터 넘겨주고 실패하면 안넘겨줌
+        Member memberDto = memberRepository.findByMb_Email(mb_email);
+        Member react2Data = null; // 로그인 성공시 데이터 넘겨주고 실패하면 안넘겨줌
 
         try {
             // 회원 정보를 기반으로 비교 (널과 비번)
-            if (pw.equals(userData.get().getMb_pw())) {    // 성공시
+            if (mb_pw.equals(memberDto.getMb_pw())) {    // 성공시
                 System.out.println("============================");
-                System.out.println("DB data pw : " + userData.get().getMb_pw());
-                System.out.println("Inpurt  pw : " + pw);
+                System.out.println("DB data pw : " + memberDto.getMb_pw());
+                System.out.println("Inpurt  pw : " + mb_pw);
                 System.out.println("Login Success");
-                react2Data = userData;
+                react2Data = memberDto;
             } else {    // 실패시
                 System.out.println("============================");
-                System.out.println("DB data pw : " + userData.get().getMb_pw());
-                System.out.println("Inpurt  pw : " + pw);
+                System.out.println("DB data pw : " + memberDto.getMb_pw());
+                System.out.println("Inpurt  pw : " + mb_pw);
                 System.out.println("Login Fail");
             }
         }catch (Exception e){
