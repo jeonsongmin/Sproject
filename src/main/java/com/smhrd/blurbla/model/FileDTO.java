@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/*
+ *   해당 DTO는 업로드 파일에 대한 테이블
+ * */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -10,6 +10,10 @@ import jakarta.persistence.Id;
 
 import java.util.Date;
 
+/*
+*   해당 DTO는 회원과 관리자 정보가 담긴 테이블
+* */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

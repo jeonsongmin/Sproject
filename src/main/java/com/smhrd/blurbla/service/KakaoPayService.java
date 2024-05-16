@@ -46,9 +46,9 @@ public class KakaoPayService {
         params.add("cid", "TC0ONETIME"); // 가맹점 코드 - 테스트용
         params.add("partner_order_id", "1001"); // 주문 번호
         params.add("partner_user_id", "goguma"); // 회원 아이디
-        params.add("item_name", "비둘기"); // 상품 명
+        params.add("item_name", "blurbla Premium"); // 상품 명
         params.add("quantity", "1"); // 상품 수량
-        params.add("total_amount", "20000"); // 상품 가격
+        params.add("total_amount", "3300"); // 상품 가격
         params.add("tax_free_amount", "100"); // 상품 비과세 금액
         params.add("approval_url", "http://localhost:8083/api/kakaoPaySuccess"); // 성공시 url
         params.add("cancel_url", "http://localhost:8083/kakaoPayCancle"); // 실패시 url
