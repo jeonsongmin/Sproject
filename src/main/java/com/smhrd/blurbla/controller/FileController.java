@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/restApi")
-public class ImageController {
+@RequestMapping("/FilApi")
+public class FileController {
 
     private final FlaskService flaskService;
 

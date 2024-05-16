@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/MemApi")
 public class MemberController {
 
     @Autowired
@@ -37,9 +37,13 @@ public class MemberController {
     }
 
     // 회원 로그인하기
-    @GetMapping("/Login")
-    public MemberDTO selectLogin(@RequestParam String mb_email, String mb_pw){
+    @PostMapping("/login")
+    public MemberDTO selectLogin(@RequestBody HashMap<String, Object> loginData){
         // 레포지토리에서 email의 회원 정보 가져오기
+
+        String mb_email = (String) loginData.get("mb_email");
+        String mb_pw = (String) loginData.get("mb_pw");
+
         MemberDTO memberDto = memberRepository.findByMb_Email(mb_email);
         MemberDTO react2Data = null; // 로그인 성공시 데이터 넘겨주고 실패하면 안넘겨줌
 

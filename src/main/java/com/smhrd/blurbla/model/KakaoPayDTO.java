@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import java.util.Date;
-
+/*
+ *   해당 DTO는 카카오 페이 결제에 대한 컬럼
+ * */
 @Getter
 @Setter
 @ToString
