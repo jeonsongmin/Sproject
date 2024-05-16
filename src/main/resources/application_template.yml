@@ -1,0 +1,34 @@
+server:
+  port: 8083
+
+# 애플리 케이션은 깃허브에 업로드 제한하고
+# 템플레이트 파일을 대체로 업로드 함으로써
+# 추후 파일 업로드 없는 문제에 대한 인식 심어주기 위한 대체 파일(설명용 파일)
+
+spring:
+  datasource:
+    url: # 추후 DB 주소 넣기
+    username: #
+    password: #
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jap:
+    database: mysql
+    generate-ddl: true
+    show-sql: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+
+cloud:
+  aws:
+    s3:
+      bucket: #
+    stack.auto: false
+    region.static: #
+    credentials:
+      accessKey: #
+      secretKey: #
+
+pay:
+  adminKey: #

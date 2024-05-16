@@ -2,7 +2,6 @@ package com.smhrd.blurbla.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smhrd.blurbla.model.File;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -35,14 +34,14 @@ public class FlaskService {
 
         // 리액트에서 보내온 파일의 모자이크 서브 데이터
         // (농도, 타입, 모양, 기타 등등.. )
-        String file_concent = (String) fileData.get("file_concent");
+        String file_concent = (String) fileData.get("concent");
 
         //헤더를 JSON으로 설정함
         byte[] imageBytes = null;
         HttpHeaders headers = new HttpHeaders();
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", imageFile.getResource());  // 파일 형식 전달
-        body.add("file_concent", file_concent);     // 파일의 농도 전달 (Auto Mosaic)
+        body.add("ratio", file_concent);     // 파일의 농도 전달 (Auto Mosaic)
 
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, headers);
 
@@ -54,7 +53,7 @@ public class FlaskService {
         System.out.println("sp2py File entity : " + entity);
         System.out.println("sp2py File body : " + body);
         System.out.println("sp2py File body file : " + body.get("file"));
-        System.out.println("sp2py File body fileData : " + body.get("file_concent"));
+        System.out.println("sp2py File body fileData : " + body.get("ratio"));
 
         byte[] res = restTemplate.postForObject(url, entity, byte[].class);
         headers.setContentType(MediaType.IMAGE_JPEG); // Set the MIME type based on your image format

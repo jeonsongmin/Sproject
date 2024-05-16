@@ -1,4 +1,4 @@
-package com.smhrd.blurbla.controller;
+package com.smhrd.blurbla.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -9,9 +9,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+/*
+*   파일 업로드 하는 Service
+*
+* */
+
+
 @Service
 @RequiredArgsConstructor
-public class FileController {
+//public class FileController {
+public class FileService {
 
     private final AmazonS3 amazonS3;
     private final AmazonS3 s3Client; // S3 이미지 정보를 가져오기 위한 필드 변수

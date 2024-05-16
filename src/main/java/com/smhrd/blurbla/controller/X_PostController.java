@@ -1,15 +1,14 @@
 package com.smhrd.blurbla.controller;
 
-import com.smhrd.blurbla.model.Board;
-import com.smhrd.blurbla.model.File;
-import com.smhrd.blurbla.repository.BoardRepository;
-import com.smhrd.blurbla.repository.FileRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
+/*
 
-import java.util.Date;
+   삭제하지 마세요/!!!
+
+    멘토링 숙제용으로 작성한 컨트롤러
+    - 타임리트 형식으로 구현된 컨트롤러
+    1. s3의 파일 업로드하는 기능이 있음 추후 중요하니 참고할 수 있게 삭제 x
+
+
 
 @RestController
 @RequestMapping("/restApi")
@@ -61,7 +60,7 @@ public class PostController {
     }
 
 }
-
+*/
 
 
 

@@ -15,10 +15,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_member")
-public class Member {
+public class MemberDTO {
     @Id
     private String mb_email;
     private String mb_pw;
     private String mb_role; // role의 디폴트 값은 M
     private Date joinedAt;
+
 }

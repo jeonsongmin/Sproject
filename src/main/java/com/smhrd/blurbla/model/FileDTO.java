@@ -16,7 +16,7 @@ import java.util.Date;
 @Entity
 @Table(name = "tb_file")
 @Getter
-public class File {
+public class FileDTO {
     @Id
     private String file_name;
     private String file_rename;

@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_test")
-public class Board {
+public class BoardDTO {
     @Id
     private int test_idx;
     private String test_title;

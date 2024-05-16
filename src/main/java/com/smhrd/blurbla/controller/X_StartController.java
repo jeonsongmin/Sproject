@@ -1,16 +1,8 @@
 package com.smhrd.blurbla.controller;
 
-import com.smhrd.blurbla.model.Board;
-import com.smhrd.blurbla.model.File;
-import com.smhrd.blurbla.repository.BoardRepository;
-import com.smhrd.blurbla.repository.FileRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
+/*
+        삭제는 하지 말 것!
+       멘토링 숙제용 컨트롤러
 
 @Controller
 public class StartController {
@@ -32,3 +24,4 @@ public class StartController {
     }
 
 }
+*/
