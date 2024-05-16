@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/MemApi")
 public class MemberController {
 
     @Autowired
