@@ -2,8 +2,10 @@ package com.smhrd.blurbla.repository;
 
 import com.smhrd.blurbla.model.QstnsDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /*
  * 문의사항 sql 작성란
@@ -14,20 +16,34 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface QstnsRepository extends JpaRepository<QstnsDTO, Long> {
+
+    // [문의사항] 금일 문의생성 카운트
     @Query(value = "SELECT COUNT(*) \n" +
                     "FROM tb_qstns\n" +
                     "WHERE DATE(questioned_at) = CURDATE();", nativeQuery = true)
     public int createQsntsCount();
 
+    // [문의사항] 전체 문의 답변대기
     @Query(value = "SELECT Count(*)\n" +
                     "FROM tb_qstns\n" +
-                    "WHERE qstn_open = 'N';", nativeQuery = true)
+                    "WHERE qstn_answer = 'N';", nativeQuery = true)
     public int standQsntsCount();
 
+    // [문의사항] 전체 문의 답변완료
     @Query(value = "SELECT Count(*)\n" +
                     "FROM tb_qstns\n" +
-                    "WHERE qstn_open = 'Y';", nativeQuery = true)
+                    "WHERE qstn_answer = 'Y';", nativeQuery = true)
     public int answerQsntsCount();
+
+
+    // [문의사항] 답변 여부를 Y로 변경
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE tb_qstns \n" +
+                    "SET qstn_answer = 'Y'\n" +
+                    "WHERE qstn_idx = :qstn_idx", nativeQuery = true)
+    public void qsntnsUpdate(String qstn_idx);
+
 }
 
 
