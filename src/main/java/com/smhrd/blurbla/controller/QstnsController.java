@@ -30,7 +30,7 @@ public class QstnsController {
         return qstnsList;
     }
 
-
+    //
     @PostMapping("/qstnsInsert")
     public String qstnsInsert(@RequestBody HashMap<String, Object> insertData){
 

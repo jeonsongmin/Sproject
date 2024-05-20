@@ -18,6 +18,8 @@ public interface AnswerRepository extends JpaRepository<AnswerDTO, Long> {
      * - where 문은 tb_member(테이블명).mb_email(컬럼명) = :(추가문법)mb_email(컬럼명)
      * */
 
+    
+    // [문의 답변] 문의사항의 답변 내역 확인
     @Query(value = "SELECT * FROM tb_answer WHERE qstn_idx = :qstn_idx", nativeQuery = true)
     public List<AnswerDTO> selectQstns_Idx(String qstn_idx);
 

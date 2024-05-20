@@ -33,11 +33,13 @@ public class AdminController {
         // 관리자 페이지의 항목들 받아오기
         List<QstnsDTO> aQstnsList = adminService.qsntsList();   // 문의사항 리스트
         List<MemberDTO> aMemberList = memberService.adminMainMemberList();   // 회원정보 리스트
+        List<MemberDTO> aPayMemberList = memberService.adminPayMainMemberList();   // 결제한 회원정보 리스트
 
         // 모델에 해당 항목들 보내주기 위한 세팅(model에 모두 담아 전송, 키:벨류 형식)
         Map<String, Object> resMap = new HashMap<>();
         resMap.put("aQstnsList", aQstnsList);
         resMap.put("aMemberList", aMemberList);
+        resMap.put("aPayMemberList", aPayMemberList);
 
         return resMap;
     }

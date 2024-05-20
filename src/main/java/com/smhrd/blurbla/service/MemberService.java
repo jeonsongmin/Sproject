@@ -15,7 +15,13 @@ public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
+    // 모든 회원 정보
     public List<MemberDTO> adminMainMemberList() {
       return memberRepository.findAll();
+    }
+
+    // 신규 결제 회원 보기
+    public List<MemberDTO> adminPayMainMemberList() {
+      return memberRepository.findMemberAllDate();
     }
 }
