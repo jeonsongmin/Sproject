@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 /*
  * 문의사항 sql 작성란
  * (예시....)
@@ -44,6 +47,9 @@ public interface QstnsRepository extends JpaRepository<QstnsDTO, Long> {
                     "WHERE qstn_idx = :qstn_idx", nativeQuery = true)
     public void qsntnsUpdate(String qstn_idx);
 
+
+    @Query(value = "SELECT * FROM tb_qstns", nativeQuery = true)
+    List<QstnsDTO> findQnaList();
 }
 
 

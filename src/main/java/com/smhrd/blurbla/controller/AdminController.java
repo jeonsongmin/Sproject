@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,10 +26,30 @@ public class AdminController {
     @PostMapping("/adminMain")
     public Map<String, Object> adminMain(){
         System.out.println("AdminController  >>>  adminMain !!");
+
+
         // 관리자 페이지의 항목들 받아오기
+        long startTime = System.currentTimeMillis();
         List<QstnsDTO> aQstnsList = adminService.qsntsList();   // 문의사항 리스트
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        System.out.println("Execution time 1: " + duration + " milliseconds");
+
+        startTime = System.currentTimeMillis();
         List<MemberDTO> aMemberList = memberService.adminMainMemberList();   // 회원정보 리스트
+        endTime = System.currentTimeMillis();
+        duration = endTime - startTime;
+        System.out.println("Execution time 2: " + duration + " milliseconds");
+
+        startTime = System.currentTimeMillis();
         List<MemberDTO> aPayMemberList = memberService.adminPayMainMemberList();   // 결제한 회원정보 리스트
+        endTime = System.currentTimeMillis();
+        duration = endTime - startTime;
+        System.out.println("Execution time 3: " + duration + " milliseconds");
+
+        System.out.println("AdminController  >>>  adminMain !!");
+
+
 
         // 모델에 해당 항목들 보내주기 위한 세팅(model에 모두 담아 전송, 키:벨류 형식)
         Map<String, Object> resMap = new HashMap<>();

@@ -1,7 +1,10 @@
 package com.smhrd.blurbla.controller;
 
 import com.smhrd.blurbla.model.MemberDTO;
+import com.smhrd.blurbla.model.PaymentDTO;
 import com.smhrd.blurbla.repository.MemberRepository;
+import com.smhrd.blurbla.service.KakaoPayService;
+import com.smhrd.blurbla.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,30 +12,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/MemApi")
 public class MemberController {
 
     @Autowired
-    private MemberRepository memberRepository;    // 작성글 전용 JPA
+    private MemberService memberService;
 
     // 회원가입하기
     @PostMapping("/join")
     public String insertJoin(@RequestBody HashMap<String, Object> joinData){
-
-        String mb_email = (String) joinData.get("mb_email");
-        String mb_pw = (String) joinData.get("mb_pw");
-
-        System.out.println("============================");
-        System.out.println("join ▶ mb_email    : "+ mb_email);
-        System.out.println("join ▶ mb_pw       : "+ mb_pw);
-
-        memberRepository.save(new MemberDTO(mb_email, mb_pw, "M", new Date()));
-        String result="";
-        System.out.println("join ▶ RedirectView insertJoin on!");
-
-        result = "Success";
+        System.out.println("*** MemberController >>> insertJoin on! ");
+        memberService.memberInsert(joinData);
+        String result = "Success";
         return result;
     }
 
@@ -44,7 +38,7 @@ public class MemberController {
         String mb_email = (String) loginData.get("mb_email");
         String mb_pw = (String) loginData.get("mb_pw");
 
-        MemberDTO memberDto = memberRepository.findByMb_Email(mb_email);
+        MemberDTO memberDto = memberService.seleteLogin(mb_email);  // 해당 회원의 모든정보 가져오기
         MemberDTO react2Data = null; // 로그인 성공시 데이터 넘겨주고 실패하면 안넘겨줌
 
         try {
@@ -75,6 +69,12 @@ public class MemberController {
         return "redirect:/login";
     }
 
+    @PostMapping("/MypagePay")
+    public List<PaymentDTO> MypagePay(@RequestBody HashMap<?,?> reslutMap){
+        String mb_email = (String) reslutMap.get("mb_email");
+        System.out.println("*** MemberController >>> MypagePay on! : " + mb_email);
+        return memberService.paymentList(mb_email);
+    }
 
 }
 

@@ -54,7 +54,7 @@ public class KakaoPayController {
         kakaoPayService.paymentInsert(mb_email);
 
         // 추후 로그인 상태 유지 > 마이페이지 > 결제 내역으로 이동
-        return new RedirectView("http://localhost:3000/");
+        return new RedirectView("http://localhost:3000/MypagePay/");
     }
 
     // 결제 중단시

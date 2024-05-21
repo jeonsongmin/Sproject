@@ -19,6 +19,12 @@ public interface PaymentRepository extends JpaRepository<PaymentDTO, Long> {
      * */
 
 
+    @Query(value = "SELECT *\n" +
+                    "FROM tb_payment\n" +
+                    "WHERE mb_email = :mb_email", nativeQuery = true)
+    List<PaymentDTO> selectMember(String mb_email);
+
+
 }
 
 

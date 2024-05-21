@@ -6,13 +6,9 @@ import com.smhrd.blurbla.repository.AnswerRepository;
 import com.smhrd.blurbla.repository.MemberRepository;
 import com.smhrd.blurbla.repository.QstnsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +21,7 @@ public class AdminService {
     // [문의사항] 모든 리스트
     public List<QstnsDTO> qsntsList(){
         System.out.println("AdminService  >>>  qsntsList");
-        return qstnsRepository.findAll();
+        return qstnsRepository.findQnaList();
     }
 
     ////////////////////////////////////////////////////////////////
