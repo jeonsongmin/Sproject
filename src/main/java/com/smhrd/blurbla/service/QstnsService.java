@@ -26,4 +26,5 @@ public class QstnsService {
         qstnsRepository.save(new QstnsDTO(null, qstnTitle, qstnContent, new Date(), qstnOpen, qstnCategory, "N", mbEmail));
         return "Success";
     }
+
 }

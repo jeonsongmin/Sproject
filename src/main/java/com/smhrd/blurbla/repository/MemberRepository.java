@@ -2,8 +2,10 @@ package com.smhrd.blurbla.repository;
 
 import com.smhrd.blurbla.model.MemberDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +26,20 @@ public interface MemberRepository extends JpaRepository<MemberDTO, Long> {
                     "FROM tb_member m join tb_payment p\n" +
                     "ON m.mb_email = p.mb_email", nativeQuery = true)
     public List<MemberDTO> findMemberAllDate();
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE tb_member\n" +
+                    "SET mb_role = :mb_role\n" +
+                    "WHERE mb_email = :mb_email", nativeQuery = true)
+    public void memberRoleUpdate(String mb_role, String mb_email);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE tb_member\n" +
+            "SET mb_role = 'U'\n" +
+            "WHERE mb_email = :mb_email", nativeQuery = true)
+    public void memberRolePremium(String mb_email);
 
 
 }

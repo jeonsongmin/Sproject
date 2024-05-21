@@ -6,8 +6,6 @@ import com.smhrd.blurbla.model.QstnsDTO;
 import com.smhrd.blurbla.service.AdminService;
 import com.smhrd.blurbla.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Parameter;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,6 +95,13 @@ public class AdminController {
         List<MemberDTO> aMemberList = memberService.adminMainMemberList();   // 회원정보 리스트
         // 모델에 해당 항목들 보내주기 위한 세팅(model에 모두 담아 전송, 키:벨류 형식)
         return aMemberList;
+    }
+
+    // [관리자 페이지] 회원 등급 임의변경
+    @PostMapping("/memberRoleUpdate")
+    public void memberRoleUpdate(@RequestBody HashMap<String, Object> memberData){
+        System.out.println("AdminController  >>>  memberRoleUpdate !!");
+        adminService.memberRoleUpdate(memberData);
     }
 
 

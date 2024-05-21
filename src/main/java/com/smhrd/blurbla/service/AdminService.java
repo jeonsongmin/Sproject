@@ -3,6 +3,7 @@ package com.smhrd.blurbla.service;
 import com.smhrd.blurbla.model.AnswerDTO;
 import com.smhrd.blurbla.model.QstnsDTO;
 import com.smhrd.blurbla.repository.AnswerRepository;
+import com.smhrd.blurbla.repository.MemberRepository;
 import com.smhrd.blurbla.repository.QstnsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class AdminService {
 
     private final QstnsRepository qstnsRepository;
     private final AnswerRepository answerRepository;
+    private final MemberRepository memberRepository;
 
     // [문의사항] 모든 리스트
     public List<QstnsDTO> qsntsList(){
@@ -65,9 +67,29 @@ public class AdminService {
         return answerRepository.save(new AnswerDTO(null, qstn_idx, ans_content, null, new Date(), admin_id));
     }
 
+    // [문의사항]
+    // 답변 적용 성공시 해당 문의사항 상태를 답변완료로 변경
     public void qsntnsUpdate(HashMap<String, Object> answerData) {
         System.out.println("AdminService  >>>  qsntnsUpdate");
         String qstn_idx = (String) answerData.get("qstn_idx");  // 문의사항 고유번호
         qstnsRepository.qsntnsUpdate(qstn_idx);
     }
+
+
+    // 회원 등급 임의변경
+    public void memberRoleUpdate(HashMap<String, Object> memberData){
+        System.out.println("AdminService  >>>  memberRoleUpdate");
+
+        String mb_role = (String) memberData.get("mb_role");
+        String mb_email = (String) memberData.get("mb_email");
+        System.out.println("mb_role  : " + mb_role);
+        System.out.println("mb_email : " + mb_email);
+
+        memberRepository.memberRoleUpdate(mb_role, mb_email);
+    }
+
+
+
+
+
 }
