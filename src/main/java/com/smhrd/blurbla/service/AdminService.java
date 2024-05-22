@@ -85,7 +85,7 @@ public class AdminService {
     }
 
 
-
-
-
+    public void adminQsntsDelete(String qstn_idx) {
+        qstnsRepository.qsntsDelete(qstn_idx);
+    }
 }

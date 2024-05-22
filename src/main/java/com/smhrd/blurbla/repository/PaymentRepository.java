@@ -1,6 +1,7 @@
 package com.smhrd.blurbla.repository;
 
 import com.smhrd.blurbla.model.AnswerDTO;
+import com.smhrd.blurbla.model.FileDTO;
 import com.smhrd.blurbla.model.PaymentDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +24,6 @@ public interface PaymentRepository extends JpaRepository<PaymentDTO, Long> {
                     "FROM tb_payment\n" +
                     "WHERE mb_email = :mb_email", nativeQuery = true)
     List<PaymentDTO> selectMember(String mb_email);
-
 
 }
 

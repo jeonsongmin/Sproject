@@ -22,8 +22,8 @@ public class QstnsService {
         return qstnsRepository.findAll();
     }
 
-    public String insert(String qstnTitle, String qstnContent, String qstnOpen, String qstnCategory, String mbEmail) {
-        qstnsRepository.save(new QstnsDTO(null, qstnTitle, qstnContent, new Date(), qstnOpen, qstnCategory, "N", mbEmail));
+    public String insert(String qstn_title, String qstn_content, String qstn_open, String qstn_category, String mb_email) {
+        qstnsRepository.save(new QstnsDTO(null, qstn_title, qstn_content, new Date(), qstn_open, qstn_category, "N", mb_email));
         return "Success";
     }
 

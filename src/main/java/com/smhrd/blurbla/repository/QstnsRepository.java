@@ -50,6 +50,12 @@ public interface QstnsRepository extends JpaRepository<QstnsDTO, Long> {
 
     @Query(value = "SELECT * FROM tb_qstns", nativeQuery = true)
     List<QstnsDTO> findQnaList();
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM tb_qstns \n" +
+                    "WHERE qstn_idx = :qstn_idx", nativeQuery = true)
+    void qsntsDelete(String qstn_idx);
 }
 
 

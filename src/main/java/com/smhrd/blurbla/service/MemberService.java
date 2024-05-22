@@ -1,7 +1,9 @@
 package com.smhrd.blurbla.service;
 
+import com.smhrd.blurbla.model.FileDTO;
 import com.smhrd.blurbla.model.MemberDTO;
 import com.smhrd.blurbla.model.PaymentDTO;
+import com.smhrd.blurbla.repository.FileRepository;
 import com.smhrd.blurbla.repository.MemberRepository;
 import com.smhrd.blurbla.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ public class MemberService {
     @Autowired
     private final MemberRepository memberRepository;
     private final PaymentRepository paymentRepository;
+    private final FileRepository fileRepository;
 
     // 회원 가입
     public MemberDTO memberInsert(HashMap<String, Object> joinData) {
@@ -52,5 +55,9 @@ public class MemberService {
 
     // 마이페이지 > 결제 내역 리스트
     public List<PaymentDTO> paymentList(String mb_email) { return paymentRepository.selectMember(mb_email);
+    }
+
+    // 마이페이지 > 작업내역
+    public List<FileDTO> myPageSelectAll(String mb_email) {return fileRepository.myPageSelect(mb_email);
     }
 }

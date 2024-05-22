@@ -122,5 +122,20 @@ public class AdminController {
         adminService.memberRoleUpdate(memberData);
     }
 
+    // [관리자 페이지] 문의사항 List 삭제
+    @PostMapping("/adminQsntsDelete")
+    public void adminQsntsDelete(@RequestBody HashMap<?,?> qsntsDataList){
+        System.out.println("AdminController  >>>  adminQsntsDelete !!");
+        // 맵에서 리스트 형식으로 넣어줘야함.
+        List reList = (List) qsntsDataList.get("qstns_idx");
+
+        // 리스트에 담긴 번호를 하나씩 삭제하기
+        for (int i = 0; i < reList.size(); i++){
+            String qstn_idx = (String) reList.get(i);
+            System.out.println(i+"번째 : " + qstn_idx);
+
+            adminService.adminQsntsDelete(qstn_idx);
+        }
+    }
 
 }

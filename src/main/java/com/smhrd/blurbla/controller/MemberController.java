@@ -1,5 +1,6 @@
 package com.smhrd.blurbla.controller;
 
+import com.smhrd.blurbla.model.FileDTO;
 import com.smhrd.blurbla.model.MemberDTO;
 import com.smhrd.blurbla.model.PaymentDTO;
 import com.smhrd.blurbla.repository.MemberRepository;
@@ -61,7 +62,7 @@ public class MemberController {
         return react2Data;
     }
 
-    // 세션 정보 지우기
+    // [로그아웃] 세션 정보 지우기
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){
         HttpSession session= request.getSession();
@@ -69,6 +70,15 @@ public class MemberController {
         return "redirect:/login";
     }
 
+    // [마이페이지] 작업내역 리스트
+    @PostMapping("/Mypage")
+    public List<FileDTO> myPage(@RequestBody HashMap<?, ?> resultMap){
+        String mb_email = (String) resultMap.get("mb_email");
+        System.out.println("*** MemberController >>> myPage on! : " + mb_email);
+        return memberService.myPageSelectAll(mb_email);
+    }
+
+    // [마이페이지] 결재내역
     @PostMapping("/MypagePay")
     public List<PaymentDTO> MypagePay(@RequestBody HashMap<?,?> reslutMap){
         String mb_email = (String) reslutMap.get("mb_email");
