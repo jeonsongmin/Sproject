@@ -18,8 +18,15 @@ public interface MemberRepository extends JpaRepository<MemberDTO, Long> {
     * - where 문은 tb_member(테이블명).mb_email(컬럼명) = :(추가문법)mb_email(컬럼명)
     * */
 
+    // 회원 모든 정보 조회
+    @Query(value = "SELECT *" +
+                    "FROM tb_member", nativeQuery = true)
+    List<MemberDTO> memberSelectAll();
+
     // 이메일로 해당 회원 정보 조회
-    @Query(value = "SELECT * FROM tb_member WHERE tb_member.mb_email = :mb_email", nativeQuery = true)
+    @Query(value = "SELECT * " +
+                    "FROM tb_member " +
+                    "WHERE tb_member.mb_email = :mb_email", nativeQuery = true)
     public MemberDTO findByMb_Email(String mb_email);
 
     @Query(value = "SELECT m.* , p.pay_item, p.pay_amount, p.pay_method\n" +
@@ -37,9 +44,7 @@ public interface MemberRepository extends JpaRepository<MemberDTO, Long> {
     @Modifying
     @Transactional
     @Query(value = "UPDATE tb_member\n" +
-            "SET mb_role = 'U'\n" +
-            "WHERE mb_email = :mb_email", nativeQuery = true)
+                    "SET mb_role = 'U'\n" +
+                    "WHERE mb_email = :mb_email", nativeQuery = true)
     public void memberRolePremium(String mb_email);
-
-
 }

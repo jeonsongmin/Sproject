@@ -18,10 +18,12 @@ public class QstnsService {
     @Autowired
     private QstnsRepository qstnsRepository;    // 작성글 전용 JPA
 
-    public List<QstnsDTO> findAll() {
-        return qstnsRepository.findAll();
+    // [문의사항] 모든 문의 SELECT
+    public List<QstnsDTO> qstnsList() {
+        return qstnsRepository.qstnsSelectList();
     }
 
+    // [문의사항] 문의사항 작성
     public String insert(String qstn_title, String qstn_content, String qstn_open, String qstn_category, String mb_email) {
         qstnsRepository.save(new QstnsDTO(null, qstn_title, qstn_content, new Date(), qstn_open, qstn_category, "N", mb_email));
         return "Success";

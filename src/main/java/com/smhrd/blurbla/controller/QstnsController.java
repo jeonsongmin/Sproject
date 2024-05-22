@@ -26,7 +26,7 @@ public class QstnsController {
     @PostMapping("/qstnsList")
     public List<QstnsDTO> qstnsList(){
         System.out.println("QstnsController >>>  qstnsList !!");
-        List<QstnsDTO> qstnsList = qstnsService.findAll();   // tb_
+        List<QstnsDTO> qstnsList = qstnsService.qstnsList();
         return qstnsList;
     }
 

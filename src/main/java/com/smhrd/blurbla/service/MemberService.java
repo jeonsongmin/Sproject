@@ -45,7 +45,7 @@ public class MemberService {
 
     // 모든 회원 정보
     public List<MemberDTO> adminMainMemberList() {
-        return memberRepository.findAll();
+        return memberRepository.memberSelectAll();
     }
 
     // 신규 결제 회원 보기

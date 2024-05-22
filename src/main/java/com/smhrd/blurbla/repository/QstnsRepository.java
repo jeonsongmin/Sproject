@@ -20,6 +20,11 @@ import java.util.Optional;
 @Repository
 public interface QstnsRepository extends JpaRepository<QstnsDTO, Long> {
 
+// [문의사항] 모든 문의 SELECT
+    @Query(value = "SELECT *" +
+                    "FROM tb_qstns", nativeQuery = true)
+    List<QstnsDTO> qstnsSelectList();
+
     // [문의사항] 금일 문의생성 카운트
     @Query(value = "SELECT COUNT(*) \n" +
                     "FROM tb_qstns\n" +
@@ -56,6 +61,8 @@ public interface QstnsRepository extends JpaRepository<QstnsDTO, Long> {
     @Query(value = "DELETE FROM tb_qstns \n" +
                     "WHERE qstn_idx = :qstn_idx", nativeQuery = true)
     void qsntsDelete(String qstn_idx);
+
+
 }
 
 
