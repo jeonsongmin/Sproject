@@ -29,23 +29,14 @@ public class AdminController {
 
 
         // 관리자 페이지의 항목들 받아오기
-        long startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();    // 속도 측정 변수 (시작 시간)
         List<QstnsDTO> aQstnsList = adminService.qsntsList();   // 문의사항 리스트
-        long endTime = System.currentTimeMillis();
-        long duration = endTime - startTime;
-        System.out.println("Execution time 1: " + duration + " milliseconds");
+        long endTime = System.currentTimeMillis();      // 속도 측정 변수 (끝난 시간)
+        long duration = endTime - startTime;            // 속도 측정 변수 (계산 시간)
+        System.out.println("Execution time 1: " + duration + " milliseconds"); // 측정속도 출력
 
-        startTime = System.currentTimeMillis();
         List<MemberDTO> aMemberList = memberService.adminMainMemberList();   // 회원정보 리스트
-        endTime = System.currentTimeMillis();
-        duration = endTime - startTime;
-        System.out.println("Execution time 2: " + duration + " milliseconds");
-
-        startTime = System.currentTimeMillis();
         List<MemberDTO> aPayMemberList = memberService.adminPayMainMemberList();   // 결제한 회원정보 리스트
-        endTime = System.currentTimeMillis();
-        duration = endTime - startTime;
-        System.out.println("Execution time 3: " + duration + " milliseconds");
 
         System.out.println("AdminController  >>>  adminMain !!");
 
