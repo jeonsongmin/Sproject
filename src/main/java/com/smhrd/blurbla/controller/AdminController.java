@@ -115,10 +115,11 @@ public class AdminController {
 
     // [관리자 페이지] 문의사항 List 삭제
     @PostMapping("/adminQsntsDelete")
-    public void adminQsntsDelete(@RequestBody HashMap<?,?> qsntsDataList){
+    public String adminQsntsDelete(@RequestBody HashMap<String,String> qsntsDataList){
         System.out.println("AdminController  >>>  adminQsntsDelete !!");
         // 맵에서 리스트 형식으로 넣어줘야함.
-        List reList = (List) qsntsDataList.get("qstns_idx");
+        String result = qsntsDataList.get("qstns_idx");
+        List reList = List.of(result.split(","));
 
         // 리스트에 담긴 번호를 하나씩 삭제하기
         for (int i = 0; i < reList.size(); i++){
@@ -127,6 +128,7 @@ public class AdminController {
 
             adminService.adminQsntsDelete(qstn_idx);
         }
+        return "Success";
     }
 
 }
