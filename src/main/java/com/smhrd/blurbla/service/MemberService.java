@@ -1,8 +1,10 @@
 package com.smhrd.blurbla.service;
 
+import com.smhrd.blurbla.model.AllMemberDTO;
 import com.smhrd.blurbla.model.FileDTO;
 import com.smhrd.blurbla.model.MemberDTO;
 import com.smhrd.blurbla.model.PaymentDTO;
+import com.smhrd.blurbla.repository.AllMemberRepository;
 import com.smhrd.blurbla.repository.FileRepository;
 import com.smhrd.blurbla.repository.MemberRepository;
 import com.smhrd.blurbla.repository.PaymentRepository;
@@ -19,6 +21,7 @@ import java.util.List;
 public class MemberService {
 
     @Autowired
+    private final AllMemberRepository allMemberRepository;
     private final MemberRepository memberRepository;
     private final PaymentRepository paymentRepository;
     private final FileRepository fileRepository;
@@ -33,7 +36,7 @@ public class MemberService {
         System.out.println("join ▶ mb_email    : "+ mb_email);
         System.out.println("join ▶ mb_pw       : "+ mb_pw);
 
-      return memberRepository.save(new MemberDTO(mb_email, mb_pw, "M", new Date(), null));
+      return memberRepository.save(new MemberDTO(mb_email, mb_pw, "M", new Date()));
     }
 
     // 회원 로그인
@@ -44,8 +47,8 @@ public class MemberService {
 
 
     // 모든 회원 정보
-    public List<MemberDTO> adminMainMemberList() {
-        return memberRepository.memberSelectAll();
+    public List<AllMemberDTO> adminMainMemberList() {
+        return allMemberRepository.memberSelectAll();
     }
 
     // 신규 결제 회원 보기

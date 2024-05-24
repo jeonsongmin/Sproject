@@ -1,5 +1,6 @@
 package com.smhrd.blurbla.controller;
 
+import com.smhrd.blurbla.model.AllMemberDTO;
 import com.smhrd.blurbla.model.AnswerDTO;
 import com.smhrd.blurbla.model.MemberDTO;
 import com.smhrd.blurbla.model.QstnsDTO;
@@ -35,7 +36,7 @@ public class AdminController {
         long duration = endTime - startTime;            // 속도 측정 변수 (계산 시간)
         System.out.println("Execution time 1: " + duration + " milliseconds"); // 측정속도 출력
 
-        List<MemberDTO> aMemberList = memberService.adminMainMemberList();   // 회원정보 리스트
+        List<AllMemberDTO> aMemberList = memberService.adminMainMemberList();   // 회원정보 리스트
         List<MemberDTO> aPayMemberList = memberService.adminPayMainMemberList();   // 결제한 회원정보 리스트
 
         System.out.println("AdminController  >>>  adminMain !!");
@@ -96,10 +97,10 @@ public class AdminController {
 
     // [관리자 페이지] 회원 관리 리스트
     @PostMapping("/adminUser")
-    public List<MemberDTO> adminUser(){
+    public List<AllMemberDTO> adminUser(){
         System.out.println("AdminController  >>>  AdminUser !!");
         // 관리자 페이지의 항목들 받아오기
-        List<MemberDTO> aMemberList = memberService.adminMainMemberList();   // 회원정보 리스트
+        List<AllMemberDTO> aMemberList = memberService.adminMainMemberList();   // 회원정보 리스트
         // 모델에 해당 항목들 보내주기 위한 세팅(model에 모두 담아 전송, 키:벨류 형식)
         return aMemberList;
     }
