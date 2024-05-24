@@ -26,4 +26,6 @@ public class MemberDTO {
     private String mb_role; // role의 디폴트 값은 M
     private Date joinedAt;
 
+    private Date payedAt;
+
 }

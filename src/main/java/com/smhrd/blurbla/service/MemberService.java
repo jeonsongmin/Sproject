@@ -33,7 +33,7 @@ public class MemberService {
         System.out.println("join ▶ mb_email    : "+ mb_email);
         System.out.println("join ▶ mb_pw       : "+ mb_pw);
 
-      return memberRepository.save(new MemberDTO(mb_email, mb_pw, "M", new Date()));
+      return memberRepository.save(new MemberDTO(mb_email, mb_pw, "M", new Date(), null));
     }
 
     // 회원 로그인
