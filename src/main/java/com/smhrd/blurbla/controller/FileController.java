@@ -38,11 +38,15 @@ public class FileController {
 //        return result;
 //    }
 
-    // [모자이크] Auto 적용시 받아오는 데이터
+    // [모자이크] Auto 적용하기 눌렀을때 React에서 받아오는 데이터
+    // 작업 흐름 : React > S3(저장) > Spring > Flask > S3(불러오기) > AI > S3(저장) > Spring > React(S3 데이터 불러오기)
     @PostMapping("/uploadFileInfo")
     public Map<String, Object> uploadFileInfo(@RequestBody HashMap<String, Object> reactMap) throws JsonProcessingException {
         System.out.println("▶ React -> Spring : FileController >> uploadFileInfo !");
 
+        // area_ List의 길이 계산
+        // (11 = Auto 값 + original_)
+        // (6 = area_ ... 의 값들)
         int result = (reactMap.size()-11) / 6;
 
         // HashMap 생성
@@ -62,9 +66,12 @@ public class FileController {
             String key = (String) entry.getKey();
             Object value = entry.getValue();
 
+            // original_ ... 로 시작하는 데이터 담기
             if (key.startsWith("original_")) {
                 originalMap.put(key, value);
             }
+
+            // area_ ... 로 시작하는 List 데이터 담기
             for (int i = 0; i < result; i++){
                 if (key.startsWith("area_"+i)) {
                     areaListMap.put(key, value);
@@ -75,18 +82,17 @@ public class FileController {
         // 데이터 활용
         System.out.println("result : " + result);
 
-        System.out.println("Data:");
+        System.out.println("Data:"); // 전송되는 데이터 콘솔 확인용
         for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
 
-        System.out.println("\nOriginal Data:");
+        System.out.println("\nOriginal Data:"); // 전송되는 데이터 콘솔 확인용
         for (Map.Entry<String, Object> entry : originalMap.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
 
-        System.out.println("\nArea Data:");
-        int num = 0;
+        System.out.println("\nArea Data:"); // 전송되는 데이터 콘솔 확인용
         for (Map.Entry<String, Object> entry : areaListMap.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
