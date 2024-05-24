@@ -40,8 +40,6 @@ public class AdminController {
 
         System.out.println("AdminController  >>>  adminMain !!");
 
-
-
         // 모델에 해당 항목들 보내주기 위한 세팅(model에 모두 담아 전송, 키:벨류 형식)
         Map<String, Object> resMap = new HashMap<>();
         resMap.put("aQstnsList", aQstnsList);
@@ -117,16 +115,21 @@ public class AdminController {
     @PostMapping("/adminQsntsDelete")
     public String adminQsntsDelete(@RequestBody HashMap<String,String> qsntsDataList){
         System.out.println("AdminController  >>>  adminQsntsDelete !!");
-        // 맵에서 리스트 형식으로 넣어줘야함.
-        String result = qsntsDataList.get("qstns_idx");
-        List reList = List.of(result.split(","));
+        try {
+            // 맵에서 리스트 형식으로 넣어줘야함.
+            String result = qsntsDataList.get("qstns_idx");
+            List reList = List.of(result.split(","));
 
-        // 리스트에 담긴 번호를 하나씩 삭제하기
-        for (int i = 0; i < reList.size(); i++){
-            String qstn_idx = (String) reList.get(i);
-            System.out.println(i+"번째 : " + qstn_idx);
+            // 리스트에 담긴 번호를 하나씩 삭제하기
+            for (int i = 0; i < reList.size(); i++){
+                String qstn_idx = (String) reList.get(i);
+                System.out.println(i+"번째 : " + qstn_idx);
 
-            adminService.adminQsntsDelete(qstn_idx);
+                adminService.adminQsntsDelete(qstn_idx);
+            }
+        } catch (Exception e) {
+            System.out.println("삭제 실패 : " + e);
+            return "Fail";
         }
         return "Success";
     }
