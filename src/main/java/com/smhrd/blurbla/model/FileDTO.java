@@ -1,8 +1,6 @@
 package com.smhrd.blurbla.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -22,10 +20,13 @@ import java.util.Date;
 @Getter
 public class FileDTO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer file_idx;
     private String file_name;
     private String file_rename;
     private String file_type;
     private Integer file_size;
     private Date CreatedAt;
+    private String mb_email;
 }
 

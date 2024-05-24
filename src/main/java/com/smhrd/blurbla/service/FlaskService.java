@@ -58,12 +58,26 @@ public class FlaskService {
 
     // s3에 저장된 모자이크 이미지 DB에 저장
     public void fileInsert(Map<String, Object> responseMap) {
+
         System.out.println("FlaskService  >>>  fileInsert !!");
+
         String file_name = (String) responseMap.get("file_name");
         String file_rename = (String) responseMap.get("file_rename");
-        Integer file_size = (Integer) responseMap.get("file_size");
-        String file_type = (String) responseMap.get("file_type");
 
-        fileRepository.save(new FileDTO(file_name, file_rename, file_type, file_size, new Date()));
+        // 플라스크에서 오는 데이터는 int형, 
+        // 리액트에서오는 데이터는 string
+        // 에러 발생함으로 try catch로 구분하여 값 넣어줌
+        Integer file_size;
+        try {
+            file_size = (Integer) responseMap.get("file_size");
+        }catch (Exception e){
+            System.out.println(">>>  fileInsert EROR : "+ e);
+            String size = (String) responseMap.get("file_size");
+            file_size = Integer.parseInt(size);
+        }
+        String file_type = (String) responseMap.get("file_type");
+        String mb_email = (String) responseMap.get("mb_email");
+
+        fileRepository.save(new FileDTO(null, file_name, file_rename, file_type, file_size, new Date(), mb_email));
     }
 }

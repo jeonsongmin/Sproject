@@ -47,7 +47,7 @@ public class FileController {
         // area_ List의 길이 계산
         // (11 = Auto 값 + original_)
         // (6 = area_ ... 의 값들)
-        int result = (reactMap.size()-11) / 6;
+        // int result = (reactMap.size()-11) / 5;
 
         // HashMap 생성
         Map<String, Object> dataMap = new HashMap<>();
@@ -61,6 +61,8 @@ public class FileController {
         dataMap.put("knife" , (String) reactMap.get("knife") );                // 흉기(칼)
         dataMap.put("intensityAuto" , (String) reactMap.get("intensityAuto") ); // 농도
 
+
+
         // 데이터 분류
         for (Map.Entry<?, ?> entry : reactMap.entrySet()) {
             String key = (String) entry.getKey();
@@ -72,15 +74,15 @@ public class FileController {
             }
 
             // area_ ... 로 시작하는 List 데이터 담기
-            for (int i = 0; i < result; i++){
-                if (key.startsWith("area_"+i)) {
-                    areaListMap.put(key, value);
-                }
+            if (key.startsWith("area_")) {
+                areaListMap.put(key, value);
             }
         }
 
+        String mb_email = (String) originalMap.get("original_mb_email");
+
         // 데이터 활용
-        System.out.println("result : " + result);
+//        System.out.println("result : " + result);
 
         System.out.println("Data:"); // 전송되는 데이터 콘솔 확인용
         for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
@@ -110,15 +112,26 @@ public class FileController {
         String responseData = new String(resultData.getBody());
         ObjectMapper objectMapper = new ObjectMapper();     Map<String, Object> jsonMap = objectMapper.readValue(responseData, Map.class);
         Map<String, Object> responseMap = (Map<String, Object>) jsonMap;
+        responseMap.put("mb_email", mb_email);  // 회원 id 넣어주기!
 
         System.out.println("///////////////////////// 저장 데이터 ////////////////////////");
         System.out.println("file_name : " + responseMap.get("file_name"));
         System.out.println("file_rename : " + responseMap.get("file_rename"));
         System.out.println("file_size : " + responseMap.get("file_size"));
         System.out.println("file_type : " + responseMap.get("file_type"));
+        System.out.println("mb_email : " + responseMap.get("mb_email"));
 
         flaskService.fileInsert(responseMap);
 
         return responseMap;
+    }
+
+    // 모자이크한 작업 파일을 사진/영상 업로드
+    @PostMapping("/mosaicUploadFileInfo")
+    public HashMap<String, Object> mosaicUploadFileInfo(@RequestBody HashMap<String, Object> reactMap)  {
+        System.out.println("▶ React -> Spring : FileController >> mosaicUploadFileInfo !");
+        // 해당 파일정보 DB에 저장
+        flaskService.fileInsert(reactMap);
+        return reactMap;
     }
 }
