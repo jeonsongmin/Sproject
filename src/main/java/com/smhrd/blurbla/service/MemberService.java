@@ -32,7 +32,7 @@ public class MemberService {
         String mb_email = (String) joinData.get("mb_email");
         String mb_pw = (String) joinData.get("mb_pw");
 
-        System.out.println("============================");
+        System.out.println("memberInsert============================");
         System.out.println("join ▶ mb_email    : "+ mb_email);
         System.out.println("join ▶ mb_pw       : "+ mb_pw);
 

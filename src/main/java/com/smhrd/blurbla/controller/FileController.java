@@ -110,8 +110,10 @@ public class FileController {
         ResponseEntity<byte[]> resultData = flaskService.sendToFlask(null, resultMap);
 
         String responseData = new String(resultData.getBody());
-        ObjectMapper objectMapper = new ObjectMapper();     Map<String, Object> jsonMap = objectMapper.readValue(responseData, Map.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> jsonMap = objectMapper.readValue(responseData, Map.class);
         Map<String, Object> responseMap = (Map<String, Object>) jsonMap;
+
         responseMap.put("mb_email", mb_email);  // 회원 id 넣어주기!
 
         System.out.println("///////////////////////// 저장 데이터 ////////////////////////");

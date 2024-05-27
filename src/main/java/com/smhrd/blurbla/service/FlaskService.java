@@ -49,7 +49,7 @@ public class FlaskService {
 
         HttpEntity<String> entity = new HttpEntity<>(objectMapper.writeValueAsString(requestBody), headers);
 
-        String url = "http://127.0.0.1:5000/detect";
+        String url = "http://127.0.0.1:5000/detect"; // 로컬에서 플라스크 보내는 url
         byte[] res = restTemplate.postForObject(url, entity, byte[].class);
 
         return new ResponseEntity<>(res, headers, HttpStatus.OK);
