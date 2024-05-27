@@ -11,6 +11,7 @@ import java.util.List;
 public interface FileRepository extends JpaRepository<FileDTO, Long> {
     @Query(value = "SELECT *\n" +
                 "FROM tb_file\n" +
-                "WHERE mb_email = :mb_email", nativeQuery = true)
+                "WHERE mb_email = :mb_email\n" +
+                "AND file_name LIKE 'final%'", nativeQuery = true)
     List<FileDTO> myPageSelect(String mb_email);
 }
